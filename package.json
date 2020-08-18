@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "bcrypt": "^5.0.0",
+    "bull": "^3.18.0",
     "cloudinary": "^1.22.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
@@ -18,10 +19,13 @@
     "multer": "^1.4.2",
     "multer-storage-cloudinary": "^4.0.0",
     "mysql2": "^2.1.0",
+    "node-cron": "^2.0.3",
     "nodemailer": "^6.4.11",
+    "pdf-creator-node": "^1.4.1",
     "sequelize": "^6.3.4"
   },
   "devDependencies": {
+    "handlebars": "4.5.0",
     "nodemon": "^2.0.4",
     "sequelize-cli": "^6.2.0"
   }

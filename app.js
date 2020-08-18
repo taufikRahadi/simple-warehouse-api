@@ -9,6 +9,7 @@ const productRouter = require('./routes/products')
 const productInRouter = require('./routes/productin')
 const productOutRouter = require('./routes/productout')
 const authRouter = require('./routes/auth')
+const reportRouter = require('./routes/report')
 const auth = require('./middleware/auth')
 
 var app = express();
@@ -25,5 +26,6 @@ app.use('/products', auth, productRouter)
 app.use('/in', auth, productInRouter)
 app.use('/out', auth, productOutRouter)
 app.use('/auth', authRouter)
+app.use('/report', auth, reportRouter)
 
 module.exports = app;
