@@ -7,6 +7,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 const productRouter = require('./routes/products')
 const productInRouter = require('./routes/productin')
+const productOutRouter = require('./routes/productout')
 
 var app = express();
 
@@ -20,5 +21,6 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/products', productRouter)
 app.use('/in', productInRouter)
+app.use('/out', productOutRouter)
 
 module.exports = app;
