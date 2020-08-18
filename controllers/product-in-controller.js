@@ -31,12 +31,33 @@ class ProductInController {
         req.body.data.date = new Date(req.body.data.date)
         try {
             const productIn = await ProductIn.create({ ...req.body.data })
-            const updateProductStock = await ProductIn.
+            const updateProductStock = await Product.findByPk(productIn.productId)
+            updateProductStock.stock += parseInt(productIn.total)
+            await updateProductStock.save()
             res.status(201).json(response('success', 'product in saved', productIn))
         } catch (error) {
             res.status(500).json(response('fail', error.message))
         }
     }
+
+    static async update (req, res) {
+        try {
+            const { date, total, productId } = req.body.data
+            const productIn = await ProductIn.findByPk(req.params.id)
+            const product = await Product.findByPk(productIn.productId)
+            product.stock = (parseInt(product.stock) - parseInt(productIn.total)) + total
+            productIn.total = total
+            productIn.date = date
+            productIn.productId = productId
+            await productIn.save()
+            await product.save()
+            res.status(200).json(response('success', 'updated', productIn))
+        } catch (error) {
+            res.status(500).json(response('fail', error.message))
+        }
+    }
+
+    
 }
 
 module.exports = ProductInController
