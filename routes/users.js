@@ -3,6 +3,7 @@ var router = express.Router();
 const UserController = require('../controllers/user-controller')
 
 /* GET users listing. */
-router.get('/', UserController.index);
+router.get('/', UserController.index)
+    .post('/', UserController.store)
 
 module.exports = router;
