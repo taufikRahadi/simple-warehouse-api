@@ -9,6 +9,7 @@ const productRouter = require('./routes/products')
 const productInRouter = require('./routes/productin')
 const productOutRouter = require('./routes/productout')
 const authRouter = require('./routes/auth')
+const auth = require('./middleware/auth')
 
 var app = express();
 
@@ -20,7 +21,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/products', productRouter)
+app.use('/products', auth, productRouter)
 app.use('/in', productInRouter)
 app.use('/out', productOutRouter)
 app.use('/auth', authRouter)
