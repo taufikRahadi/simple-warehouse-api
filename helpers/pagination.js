@@ -4,7 +4,7 @@ const pagination = async data => {
 
     const totalItems = data.total
     const totalPages = (limit % data.total) + 1
-    const currentPage = parseInt(data.page)
+    const currentPage = page + 1
 
     return {
         limit, page, data: { totalItems, totalPages, currentPage }
