@@ -19,7 +19,7 @@ class ProductController {
                 ]
             })
             const data = {
-                products,
+                data: products,
                 ...pagination.data
             }
             res.status(200).json(response('success', 'get products data', { data }))
