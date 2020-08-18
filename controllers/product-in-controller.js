@@ -73,6 +73,17 @@ class ProductInController {
             res.status(500).json(response('fail', error.message))
         }
     }
+
+    static async destroy (req, res) {
+        try {
+            const productIn = await ProductIn.findByPk(req.params.id)
+            if(!productIn) res.status(404).json(response('fail', 'data not found'))
+            await ProductIn.destroy({ where: { id: req.params.id } })
+            res.status(200).json(response('success', 'data deleted'))
+        } catch (error) {
+            res.status(500).json(response('fail', error.message))
+        }
+    }
 }
 
 module.exports = ProductInController

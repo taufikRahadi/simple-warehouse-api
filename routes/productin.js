@@ -5,5 +5,7 @@ router.get('/', ProductInController.index)
     .post('/', ProductInController.store)
 
 router.patch('/:id', ProductInController.update)
+    .get('/:id', ProductInController.show)
+    .delete('/:id', ProductInController.destroy)
 
 module.exports = router
