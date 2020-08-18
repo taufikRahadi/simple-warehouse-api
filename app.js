@@ -8,6 +8,7 @@ var usersRouter = require('./routes/users');
 const productRouter = require('./routes/products')
 const productInRouter = require('./routes/productin')
 const productOutRouter = require('./routes/productout')
+const authRouter = require('./routes/auth')
 
 var app = express();
 
@@ -22,5 +23,6 @@ app.use('/users', usersRouter);
 app.use('/products', productRouter)
 app.use('/in', productInRouter)
 app.use('/out', productOutRouter)
+app.use('/auth', authRouter)
 
 module.exports = app;
