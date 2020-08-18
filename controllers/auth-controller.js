@@ -5,6 +5,16 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
 class AuthController {
+    static async signup (req, res) {
+        try {
+            req.body.data.password = await bcrypt.hash(req.body.data.password, parseInt(process.env.SALT_ROUND))
+            const user = await User.create({ ...req.body.data })
+            res.status(200).json(response('success', 'user created', user))
+        } catch (err) {
+            res.status(500).json(response('fail', err.message))
+        }
+    }
+
     static async login (req, res) {
         // res.json(req.body.data)
         try {
