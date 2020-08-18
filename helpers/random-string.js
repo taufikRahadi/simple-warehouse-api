@@ -1,0 +1,1 @@
+module.exports = (length) => [...Array(length)].map(n => (~~(Math.random() * 36)).toString(36)).join('')
