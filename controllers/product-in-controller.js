@@ -57,7 +57,22 @@ class ProductInController {
         }
     }
 
-    
+    static async show (req, res) {
+        try {
+            const productIn = await ProductIn.findOne({
+                where: {
+                    id: req.params.id
+                },
+                include: [
+                    { model: Product, as: 'product', include: [ { model: User, as: 'supplier' } ] }
+                ]
+            })
+            if (!productIn) res.status(404).json(response('fail', 'data not founds'))
+            res.status(200).json(response('success', 'get product in by id', productIn))
+        } catch (error) {
+            res.status(500).json(response('fail', error.message))
+        }
+    }
 }
 
 module.exports = ProductInController
