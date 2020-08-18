@@ -6,4 +6,8 @@ const UserController = require('../controllers/user-controller')
 router.get('/', UserController.index)
     .post('/', UserController.store)
 
+router.patch('/:id', UserController.update)
+    .get('/:id', UserController.show)
+    .delete('/:id', UserController.destroy)
+
 module.exports = router;
