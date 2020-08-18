@@ -2,12 +2,23 @@ require('dotenv').config()
 const { User } = require('../models')
 const response = require('../helpers/response')
 const bcrypt = require('bcrypt')
+const getPagination = require('../helpers/pagination')
 
 class UserController {
     static async index (req, res) {
+        const pagination = await getPagination({
+            limit: req.query.limit,
+            page: req.query.page,
+            total: await User.count(),
+        })
         try {
-            const users = await User.findAll()
-            res.status(200).json(response('success', 'success get users data', users))
+            const users = await User.findAll({
+                offset: pagination.page,
+                limit: pagination.limit,
+                subQuery: false
+            })
+            const data = { data: users, ...pagination.data }
+            res.status(200).json(response('success', 'success get users data', { data }))
         } catch (err) {
             res.status(500).json(response('fail', err.message))
         }
