@@ -23,19 +23,15 @@ class ReportController {
                         { model: Product, as: 'product' }
                     ]
                 })
-                const pdf = await generatePDF(productIn)
-                // await sendEmail({
-                    //     email: user.email,
-                //     subject: 'Monthly Report',
-                //     attachments: [
-                //         {
-                    //             filename: new Date(),
-                //             path: pdf
-                //         }
-                //     ]
-                // })
-                res.json({productIn, pdf})
-                // res.send(pdf)
+                let data = productIn.map(p => p.dataValues)
+                const productData = data.map(p => p['product'] = p.product.dataValues)
+                const pdf = await generatePDF(data)
+                await sendEmail({
+                    email: user.email,
+                    subject: 'Monthly Report',
+                    pdf: pdf.filename
+                })
+                res.status(200).send('Email Sent')
             }
         } catch (err) {
             res.status(500).json(response('fail', err.message))

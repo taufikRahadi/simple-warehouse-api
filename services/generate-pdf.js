@@ -13,7 +13,9 @@ function generatePDF (data) {
     
             const document = {
                 html: html,
-                data: {productIn: data},
+                data: {
+                    productIn: data
+                },
                 path: new Date() + '.pdf'
             }
             try {
