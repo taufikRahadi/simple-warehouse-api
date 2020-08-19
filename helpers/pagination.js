@@ -3,7 +3,7 @@ const pagination = async data => {
     const page = data.page && data.page > 0 ? (parseInt(data.page) - 1) : 0
 
     const totalItems = data.total
-    const totalPages = (limit % data.total) + 1
+    const totalPages = data.total == 0 ? 0 : (limit % data.total) + 1
     const currentPage = page + 1
 
     return {

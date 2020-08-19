@@ -11,6 +11,11 @@ const productOutRouter = require('./routes/productout')
 const authRouter = require('./routes/auth')
 const reportRouter = require('./routes/report')
 const auth = require('./middleware/auth')
+const { UI } = require('bull-board')
+const { setQueues } = require('bull-board')
+const reportQueue = require('./queue/report')
+
+setQueues([reportQueue])
 
 var app = express();
 
@@ -21,6 +26,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+app.use('/admin/queues', UI)
 app.use('/users', auth, usersRouter);
 app.use('/products', auth, productRouter)
 app.use('/in', auth, productInRouter)

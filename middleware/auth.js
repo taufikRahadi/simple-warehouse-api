@@ -4,7 +4,7 @@ const { User } = require('../models')
 const response = require('../helpers/response')
 
 module.exports = async (req, res, next) => {
-    if (!req.headers['authorization']) res.status(401).json(response('fail', 'unauthenticated'))
+    if (!req.headers['authorization']) return res.status(401).json(response('fail', 'unauthenticated'))
 
     const token = req.headers['authorization'].split(' ')[1]
     try {

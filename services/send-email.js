@@ -8,12 +8,7 @@ const sendEmail = async (payload) => {
         to: payload.email,
         from: config.auth.user,
         subject: payload.subject,
-        attachments: [
-            {
-                filename: new Date() + '_data.pdf',
-                path: payload.pdf
-            }
-        ]
+        attachments: payload.attachments
     }
 
     transporter.sendMail(mail)

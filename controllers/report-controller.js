@@ -2,6 +2,7 @@ const response = require('express')
 const { Product, ProductOut, ProductIn, User } = require('../models')
 const generatePDF = require('../services/generate-pdf')
 const sendEmail = require('../services/send-email')
+const reportQueue = require('../queue/report')
 
 class ReportController {
     static async sendEmail (req, res) {
@@ -16,20 +17,23 @@ class ReportController {
                 })
                 const productIn = await ProductIn.findAll({
                     where: {
-                        // date: new Date().getMonth(),
                         productId: req.params.id,
                     },
                     include: [
                         { model: Product, as: 'product' }
                     ]
                 })
+                console.log(productIn)
                 let data = productIn.map(p => p.dataValues)
                 const productData = data.map(p => p['product'] = p.product.dataValues)
-                const pdf = await generatePDF(data)
-                await sendEmail({
-                    email: user.email,
-                    subject: 'Monthly Report',
-                    pdf: pdf.filename
+                reportQueue.add({
+                    pdf: data,
+                    user: user.email,
+                }, {
+                    delay: 1000,
+                    repeat: {
+                        cron: '0 01 0 28-31 * *',
+                    }
                 })
                 res.status(200).send('Email Sent')
             }
