@@ -26,12 +26,12 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/admin/queues', UI)
-app.use('/users', auth, usersRouter);
-app.use('/products', auth, productRouter)
-app.use('/in', auth, productInRouter)
-app.use('/out', auth, productOutRouter)
-app.use('/auth', authRouter)
-app.use('/report', auth, reportRouter)
+app.use('/api/v1/admin/queues', UI)
+app.use('/api/v1/users', auth, usersRouter);
+app.use('/api/v1/products', auth, productRouter)
+app.use('/api/v1/in', auth, productInRouter)
+app.use('/api/v1/out', auth, productOutRouter)
+app.use('/api/v1/auth', authRouter)
+app.use('/api/v1/report', auth, reportRouter)
 
 module.exports = app;
